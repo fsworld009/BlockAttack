@@ -25,7 +25,7 @@ class Game(object):
         player1 = Player(0,(12,12))
         player2 = Player(1,(88,88))
         
-
+        input1 = Input((pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_KP2,pygame.K_KP1,pygame.K_KP_ENTER))
         
         while True:
               
@@ -34,7 +34,11 @@ class Game(object):
                 if event.type ==  pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                """elif event.type == KEYDOWN and event.key == K_SPACE:
+                elif event.type == pygame.KEYDOWN:
+                    input1.pushdown(event.key)
+                elif event.type == pygame.KEYUP:
+                    input1.release(event.key)
+                """"elif event.type == KEYDOWN and event.key == K_SPACE:
                     y+=5
                 elif event.type == MOUSEBUTTONDOWN:
                     sound.play()
@@ -47,3 +51,8 @@ class Game(object):
             pygame.display.flip()   #draw screen
                     
             clock.tick(60)  #fps control
+            
+            #input1.printButtons()
+            
+            #frame end, call frameend() of each object
+            input1.frameend()
