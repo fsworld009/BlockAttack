@@ -1,4 +1,6 @@
 import pygame, sys
+from Player import Player
+from Input import Input
 
 '''
 Created on 2013/6/4
@@ -20,6 +22,10 @@ class Game(object):
         
     def __run(self):
         clock = pygame.time.Clock()
+        player1 = Player(0,(12,12))
+        player2 = Player(1,(88,88))
+        
+
         
         while True:
               
@@ -36,6 +42,8 @@ class Game(object):
                     #save screenshot
                     pygame.image.save(screen,"screenshot.png")"""
             self.__screen.fill((0,0,0))  #clean screen
+            player1.blit(self.__screen)
+            player2.blit(self.__screen)
             pygame.display.flip()   #draw screen
                     
             clock.tick(60)  #fps control

@@ -3,10 +3,10 @@ import pygame
 
 class Object(object):
     
-    def __init__(self,x,y):
+    def __init__(self,axis=(0,0)):
         #attribute list
-        self.__x = x
-        self.__y = y
+        self.__x = axis[0]
+        self.__y = axis[1]
         self.__vx = 0
         self.__vy = 0
         
@@ -14,14 +14,41 @@ class Object(object):
         self.__spriteNo = 0
         
         self.__bodyList = []
+        self.__noOfBodies = 0
         
     #override this function
-    def move(self):
+    def action(self):
         pass
 
     def update(self):
         self.__x += self.__vx
         self.__y += self.__vy
         
+    def blit(self,screenSurface):
+        if not screenSurface is None:
+            screenSurface.blit(self.__sprite,(self.__x,self.__y))
+        
     def frameend(self):
+        self.__noOfBodies = 0
+    
+    def _loadSprite(self,spritePath):
+        #only support png files with transparency
+        self.__sprite = pygame.image.load(spritePath)#.convert_alpha()
+        #print(self.__sprite.get_alpha())
+        #self.__sprite.set_alpha(100)
+        #print(self.__sprite.get_at((0,0)))
+        #print(self.__sprite.get_colorkey())
+        #self.__sprite.set_colorkey((0,0,0))
+        #print(self.__sprite.get_colorkey())
+        
+    def _setSprite(self,spriteNo):
+        self.__spriteNo = spriteNo
+        
+    def _setBody(self):
         pass
+        
+    def _move(self,velocity=(0,0)):
+        self.__vx = velocity[0]
+        self.__vy = velocity[1]
+        
+    

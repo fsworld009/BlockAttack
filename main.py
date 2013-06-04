@@ -8,6 +8,7 @@ Created on 2013/6/4
 def main():
     game = Game()
     game.start()
+    print("end")
 
 if __name__ == '__main__':
     main()
