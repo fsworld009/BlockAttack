@@ -16,6 +16,15 @@ class Object(object):
         self.__bodyList = []
         self.__noOfBodies = 0
         
+        self.__frame = 0
+        
+    
+    def _getFrame(self):
+        return self.__frame
+    
+    def _setFrame(self,nextFrame):
+        self.__frame = nextFrame
+        
     #override this function
     def action(self):
         pass
@@ -49,8 +58,8 @@ class Object(object):
     def _setBody(self):
         pass
         
-    def _move(self,velocity=(0,0)):
-        self.__vx = velocity[0]
-        self.__vy = velocity[1]
+    def _move(self,x=0,y=0):
+        self.__vx += x
+        self.__vy += y
         
     

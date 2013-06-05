@@ -52,6 +52,10 @@ class Game(object):
             #action
             for _ in playerList:
                 _.action()
+                
+            #update obj positions and status
+            for _ in playerList:
+                _.update()
             
             
             #blit
