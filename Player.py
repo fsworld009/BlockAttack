@@ -20,12 +20,17 @@ class Player(Object):
     def action(self):
         frame = self._getFrame()
         if frame==0:
-            if InputList.ins().hold(self.__playerNo,Input.UP):
+            if self._iHold(Input.UP):
                 self._move(0,-5)
-            if InputList.ins().hold(self.__playerNo,Input.DOWN):
+            if self._iHold(Input.DOWN):
                 self._move(0,5)
-            if InputList.ins().hold(self.__playerNo,Input.LEFT):
+            if self._iHold(Input.LEFT):
                 self._move(-5,0)
-            if InputList.ins().hold(self.__playerNo,Input.RIGHT):
+            if self._iHold(Input.RIGHT):
                 self._move(5,0)
+    
+    def _iPushdown(self,keycode):
+        return super(Player,self)._iPushdown(self.__playerNo,keycode)
         
+    def _iHold(self,keycode):
+        return super(Player,self)._iHold(self.__playerNo,keycode)

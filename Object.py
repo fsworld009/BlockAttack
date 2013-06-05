@@ -1,5 +1,5 @@
 import pygame
-
+from InputList import InputList
 
 class Object(object):
     
@@ -61,5 +61,12 @@ class Object(object):
     def _move(self,x=0,y=0):
         self.__vx += x
         self.__vy += y
+    
+    #warp long function call of InputList    
+    def _iPushdown(self,inputNo,keycode):
+        return InputList.ins().pushdown(inputNo,keycode)
+        
+    def _iHold(self,inputNo,keycode):
+        return InputList.ins().hold(inputNo,keycode)
         
     
