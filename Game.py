@@ -1,6 +1,6 @@
 import pygame, sys
 from Player import Player
-from Input import Input
+from InputList import InputList
 
 '''
 Created on 2013/6/4
@@ -22,10 +22,14 @@ class Game(object):
         
     def __run(self):
         clock = pygame.time.Clock()
-        player1 = Player(0,(12,12))
-        player2 = Player(1,(88,88))
         
-        input1 = Input((pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_KP2,pygame.K_KP1,pygame.K_KP_ENTER))
+        #initialize objects
+        InputList.ins()
+        
+        playerList=[]
+        playerList.append(Player(0,(88,88)))
+        
+        
         
         while True:
               
@@ -35,9 +39,9 @@ class Game(object):
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    input1.pushdown(event.key)
+                    InputList.ins().setPushdown(event.key)
                 elif event.type == pygame.KEYUP:
-                    input1.release(event.key)
+                    InputList.ins().setRelease(event.key)
                 """"elif event.type == KEYDOWN and event.key == K_SPACE:
                     y+=5
                 elif event.type == MOUSEBUTTONDOWN:
@@ -45,14 +49,24 @@ class Game(object):
                 elif event.type == KEYDOWN and event.key == K_F12:
                     #save screenshot
                     pygame.image.save(screen,"screenshot.png")"""
+            #action
+            for _ in playerList:
+                _.action()
+            
+            
+            #blit
             self.__screen.fill((0,0,0))  #clean screen
-            player1.blit(self.__screen)
-            player2.blit(self.__screen)
+            for _ in playerList:
+                _.blit(self.__screen)
             pygame.display.flip()   #draw screen
+            
+            #frameend
+            for _ in playerList:
+                _.frameEnd()
                     
-            clock.tick(60)  #fps control
+            InputList.ins().frameEnd()
             
-            #input1.printButtons()
+
             
-            #frame end, call frameend() of each object
-            input1.frameend()
+            #fps control
+            clock.tick(60)  

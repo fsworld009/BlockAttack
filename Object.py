@@ -28,8 +28,10 @@ class Object(object):
         if not screenSurface is None:
             screenSurface.blit(self.__sprite,(self.__x,self.__y))
         
-    def frameend(self):
+    def frameEnd(self):
         self.__noOfBodies = 0
+        self.__vx = 0
+        self.__vy = 0
     
     def _loadSprite(self,spritePath):
         #only support png files with transparency

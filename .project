@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>InputList.py</name>
+			<type>1</type>
+			<location>D:/Dropbox/Program/blockattack/InputList.py</location>
+		</link>
+	</linkedResources>
 </projectDescription>
