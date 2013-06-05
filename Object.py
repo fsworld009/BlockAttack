@@ -1,6 +1,7 @@
 import pygame
 from InputList import InputList
 from Rect import Rect
+import Global
 
 class Object(object):
     #Object attributes 
@@ -16,7 +17,7 @@ class Object(object):
         self.__spriteNo = 0
         
         self.__bodyList = []
-        #also use __bodyNo as curent no of bodies
+        #also use __bodyNo as current no of bodies
         self.__bodyNo = 0
         
         self.__frame = 0
@@ -39,13 +40,11 @@ class Object(object):
     def blit(self,screenSurface):
         if not screenSurface is None:
             screenSurface.blit(self.__sprite,(self.__x,self.__y))
+            if Global.showRect:
+                for _ in range(self.__bodyNo):
+                    self.__bodyList[_].blit(screenSurface,self.__x,self.__y)
         
-    def frameEnd(self):
-        self.__noOfBodies = 0
-        self.__vx = 0
-        self.__vy = 0
-        
-        self.__bodyNo = 0
+
     
     def _loadSprite(self,spritePath):
         #only support png files with transparency
@@ -78,4 +77,9 @@ class Object(object):
     def _iHold(self,inputNo,keycode):
         return InputList.ins().hold(inputNo,keycode)
         
-    
+    def frameEnd(self):
+        self.__noOfBodies = 0
+        self.__vx = 0
+        self.__vy = 0
+        
+        self.__bodyNo = 0

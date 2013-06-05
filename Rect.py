@@ -3,6 +3,7 @@ Created on 2013/6/5
 
 @author: WorldFS
 '''
+import pygame
 
 # Rect Coordinates
 # Data structure
@@ -31,7 +32,9 @@ class Rect(object):
         rc.right = objX+self.__width-1
         rc.bottom = objY+self.__height-1
         return rc
-        
+    
+    def blit(self,screenSurface,objX,objY):
+        pygame.draw.rect(screenSurface,(0,128,0), pygame.Rect((objX+self.__x,objY+self.__y),(self.__width,self.__height)),1)
     @staticmethod
     def collide(r1, r2):
         return ((r1.left <= r2.right) and (r2.left <= r1.right) and (r1.top <= r2.bottom) and (r2.top <=r1.bottom))

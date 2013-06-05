@@ -1,6 +1,7 @@
 import pygame, sys
 from Player import Player
 from InputList import InputList
+import Global
 
 '''
 Created on 2013/6/4
@@ -39,6 +40,8 @@ class Game(object):
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
+                    if event.key==pygame.K_d:
+                        Global.showRect = True if not Global.showRect else False
                     InputList.ins().setPushdown(event.key)
                 elif event.type == pygame.KEYUP:
                     InputList.ins().setRelease(event.key)
@@ -56,18 +59,18 @@ class Game(object):
             #update obj positions and status
             for _ in playerList:
                 _.update()
+                     
+            #blit
+            self.__screen.fill((0,0,0))  #clean screen
+            for _ in playerList:
+                _.blit(self.__screen)
+            pygame.display.flip()   #draw screen
             
             #frameend
             for _ in playerList:
                 _.frameEnd()
                     
             InputList.ins().frameEnd()
-            
-            #blit
-            self.__screen.fill((0,0,0))  #clean screen
-            for _ in playerList:
-                _.blit(self.__screen)
-            pygame.display.flip()   #draw screen
             
             #fps control
             clock.tick(60)  
