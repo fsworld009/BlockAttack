@@ -4,7 +4,7 @@ Created on 2013/6/4
 @author: WorldFS
 '''
 from Object import Object
-from InputList import InputList,Input
+from InputList import Input
 
 class Player(Object):
     
@@ -28,6 +28,8 @@ class Player(Object):
                 self._move(-5,0)
             if self._iHold(Input.RIGHT):
                 self._move(5,0)
+                
+
     
     def _iPushdown(self,keycode):
         return super(Player,self)._iPushdown(self.__playerNo,keycode)

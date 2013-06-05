@@ -2,6 +2,7 @@ import pygame
 from InputList import InputList
 
 class Object(object):
+    #Object attributes 
     
     def __init__(self,axis=(0,0)):
         #attribute list

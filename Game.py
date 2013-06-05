@@ -27,7 +27,7 @@ class Game(object):
         InputList.ins()
         
         playerList=[]
-        playerList.append(Player(0,(88,88)))
+        playerList.append(Player(0,(0,0)))
         
         
         
@@ -57,20 +57,17 @@ class Game(object):
             for _ in playerList:
                 _.update()
             
-            
-            #blit
-            self.__screen.fill((0,0,0))  #clean screen
-            for _ in playerList:
-                _.blit(self.__screen)
-            pygame.display.flip()   #draw screen
-            
             #frameend
             for _ in playerList:
                 _.frameEnd()
                     
             InputList.ins().frameEnd()
             
-
+            #blit
+            self.__screen.fill((0,0,0))  #clean screen
+            for _ in playerList:
+                _.blit(self.__screen)
+            pygame.display.flip()   #draw screen
             
             #fps control
             clock.tick(60)  
