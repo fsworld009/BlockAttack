@@ -2,6 +2,7 @@ import pygame, sys
 from Player import Player
 from InputList import InputList
 import Global
+from Enemy import Enemy
 
 '''
 Created on 2013/6/4
@@ -30,7 +31,8 @@ class Game(object):
         playerList=[]
         playerList.append(Player(0,(0,0)))
         
-        
+        enemyList=[]
+        enemyList.append(Enemy((320,240)))
         
         while True:
               
@@ -55,20 +57,30 @@ class Game(object):
             #action
             for _ in playerList:
                 _.action()
+            for _ in enemyList:
+                _.action()
                 
             #update obj positions and status
             for _ in playerList:
                 _.update()
+            for _ in enemyList:
+                _.update()
+            
                      
             #blit
             self.__screen.fill((0,0,0))  #clean screen
             for _ in playerList:
                 _.blit(self.__screen)
+            for _ in enemyList:
+                _.blit(self.__screen)
             pygame.display.flip()   #draw screen
             
             #frameend
+            for _ in enemyList:
+                _.frameEnd()
             for _ in playerList:
                 _.frameEnd()
+
                     
             InputList.ins().frameEnd()
             

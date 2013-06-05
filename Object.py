@@ -16,6 +16,8 @@ class Object(object):
         self.__sprite = None
         self.__spriteNo = 0
         
+        self.__boundBox = Rect(0,0,0,0)
+        
         self.__bodyList = []
         #also use __bodyNo as current no of bodies
         self.__bodyNo = 0
@@ -41,6 +43,7 @@ class Object(object):
         if not screenSurface is None:
             screenSurface.blit(self.__sprite,(self.__x,self.__y))
             if Global.showRect:
+                self.__boundBox.blit(screenSurface,self.__x,self.__y)
                 for _ in range(self.__bodyNo):
                     self.__bodyList[_].blit(screenSurface,self.__x,self.__y)
         
@@ -65,6 +68,9 @@ class Object(object):
         else:
             self.__bodyList.append( Rect(x,y,width,height))
         self.__bodyNo+=1
+        
+    def _setBoundBox(self,x,y,width,height):
+        self.__boundBox.change(x, y, width, height)
         
     def _move(self,x=0,y=0):
         self.__vx += x
