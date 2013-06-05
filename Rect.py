@@ -14,9 +14,10 @@ class RectC(object):
         self.left = 0
         self.right = 0
         self.bottom = 0
+    def print(self):
+        return str(self.left)+" "+str(self.top)+" "+str(self.right)+" "+str(self.bottom)
 
-
-#if __width==__height= 0 then the rect does not collide with any other rect in game       
+#if __width==__height= 0 then the rect does not collide with any other rect in game
 class Rect(object):
     def __init__(self,x,y,width,height):
         self.change(x,y,width,height)
@@ -34,7 +35,7 @@ class Rect(object):
         else:
             rc = RectC()
             rc.left = objX+self.__x
-            rc.top = objX+self.__y
+            rc.top = objY+self.__y
             rc.right = objX+self.__width-1
             rc.bottom = objY+self.__height-1
             return rc
@@ -46,6 +47,8 @@ class Rect(object):
             pygame.draw.rect(screenSurface,(0,128,0), pygame.Rect((objX+self.__x,objY+self.__y),(self.__width,self.__height)),1)
     @staticmethod
     def collide(r1, r2):
+        #print("r1: "+r1.print())
+        #print("r2: "+r2.print())
         if r1 is None or r2 is None:
             return False
         else:

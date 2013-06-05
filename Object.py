@@ -89,3 +89,16 @@ class Object(object):
         self.__vy = 0
         
         self.__bodyNo = 0
+        
+    def collisionCorrection(self,targetObj):
+        
+        adjust_vx = 0
+        adjust_vy = 0
+        #LEFT
+        if self.__vx - targetObj.__vx <0:
+            r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y)
+            if Rect.collide(r1, r2):
+                print("collide")
+                adjust_vx-= r2.right+1 - (r1.left)
+                

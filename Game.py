@@ -65,6 +65,11 @@ class Game(object):
                 _.update()
             for _ in enemyList:
                 _.update()
+                
+            #collision detection
+            for p in playerList:
+                for e in enemyList:
+                    p.collisionCorrection(e)
             
                      
             #blit
