@@ -16,10 +16,12 @@ class Player(Object):
         elif playerNo==1:
             self._loadSprite("./sprite/player2.png")
             self.__playerNo = 1
+        
     
     def action(self):
         frame = self._getFrame()
         if frame==0:
+            self._setBody(4, 0, 32, 48)
             if self._iHold(Input.UP):
                 self._move(0,-5)
             if self._iHold(Input.DOWN):

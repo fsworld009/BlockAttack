@@ -1,5 +1,6 @@
 import pygame
 from InputList import InputList
+from Rect import Rect
 
 class Object(object):
     #Object attributes 
@@ -15,7 +16,8 @@ class Object(object):
         self.__spriteNo = 0
         
         self.__bodyList = []
-        self.__noOfBodies = 0
+        #also use __bodyNo as curent no of bodies
+        self.__bodyNo = 0
         
         self.__frame = 0
         
@@ -42,6 +44,8 @@ class Object(object):
         self.__noOfBodies = 0
         self.__vx = 0
         self.__vy = 0
+        
+        self.__bodyNo = 0
     
     def _loadSprite(self,spritePath):
         #only support png files with transparency
@@ -56,8 +60,12 @@ class Object(object):
     def _setSprite(self,spriteNo):
         self.__spriteNo = spriteNo
         
-    def _setBody(self):
-        pass
+    def _setBody(self,x,y,width,height):
+        if self.__bodyNo < len(self.__bodyList):
+            self.__bodyList[self.__bodyNo].change(x,y,width,height)
+        else:
+            self.__bodyList.append( Rect(x,y,width,height))
+        self.__bodyNo+=1
         
     def _move(self,x=0,y=0):
         self.__vx += x
