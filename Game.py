@@ -178,7 +178,10 @@ class Game(object):
             
             #display timer
             self.__screen.blit(font.render("Time:"+str(playTime)+" frames", 1, (255,0,255)), (0, 0))
-            self.__screen.blit(font.render("High Score:"+str(Global.highScore)+" frames", 1, (255,0,255)), (0, 20))        
+            self.__screen.blit(font.render("High Score:"+str(Global.highScore)+" frames", 1, (255,0,255)), (0, 20)) 
+            
+            #display fps
+            self.__screen.blit(font.render("FPS: "+str(clock.get_fps()), 1, (255,0,255)), (540, 0))     
             pygame.display.flip()   #draw screen
                 
             
