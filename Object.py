@@ -109,7 +109,21 @@ class Object(object):
             r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y)
             r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y)
             if Rect.collide(r1, r2):
-                print("LEFT collide")
-                adjust_vx-= r2.right+1 - (r1.left)
+                #print("LEFT collide")
+                adjust_vx+= r2.right+1 - (r1.left)
                 self.__collision[Object.D_LEFT] = 0b1
                 
+        #RIGHT
+        if self.__vx - targetObj.__vx >0:
+            r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y)
+            if Rect.collide(r1, r2):
+                #print("RIGHT collide")
+                adjust_vx-= r1.right - (r2.left-1)
+                self.__collision[Object.D_RIGHT] = 0b1
+                
+        #UP
+        
+        #print(str(adjust_vx))
+        self.__vx += adjust_vx
+        self.__vy += adjust_vy

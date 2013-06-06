@@ -36,8 +36,8 @@ class Rect(object):
             rc = RectC()
             rc.left = objX+self.__x
             rc.top = objY+self.__y
-            rc.right = objX+self.__width-1
-            rc.bottom = objY+self.__height-1
+            rc.right = objX+self.__x+self.__width-1
+            rc.bottom = objY+self.__y+self.__height-1
             return rc
         
     def blit(self,screenSurface,objX,objY):
