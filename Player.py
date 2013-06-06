@@ -22,7 +22,9 @@ class Player(Object):
         frame = self._getFrame()
         if frame==0:
             #self._setBody(4, 0, 32, 48)
+            self._setSprite(0,0,0)
             self._setBoundBox(4, 0, 32, 48)
+            
             if self._iHold(Input.UP):
                 self._move(0,-5)
             if self._iHold(Input.DOWN):

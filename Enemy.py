@@ -17,5 +17,6 @@ class Enemy(Object):
         frame = self._getFrame()
         if frame==0:
             #self._setBody(0, 0, 32, 32)
+            self._setSprite(0,0,0)
             self._setBoundBox(0, 0, 32, 32)
             #self._move(0,5)

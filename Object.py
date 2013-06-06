@@ -28,6 +28,11 @@ class Object(object):
         self.__frame = 0
         
         self.__collision = [0b0,0b0,0b0,0b0]
+        
+        self.__spriteX =0
+        self.__spriteY = 0
+        
+
     
     def _getFrame(self):
         return self.__frame
@@ -45,7 +50,7 @@ class Object(object):
         
     def blit(self,screenSurface):
         if not screenSurface is None:
-            screenSurface.blit(self.__sprite,(self.__x,self.__y))
+            screenSurface.blit(self.__sprite,(self.__x+self.__spriteX,self.__y+self.__spriteY))
             if Global.showRect:
                 self.__boundBox.blit(screenSurface,self.__x,self.__y)
                 for _ in range(self.__bodyNo):
@@ -63,8 +68,10 @@ class Object(object):
         #self.__sprite.set_colorkey((0,0,0))
         #print(self.__sprite.get_colorkey())
         
-    def _setSprite(self,spriteNo):
+    def _setSprite(self,spriteNo,x,y):
         self.__spriteNo = spriteNo
+        self.__spriteX = x
+        self.__spriteY = y
         
     def _setBody(self,x,y,width,height):
         if self.__bodyNo < len(self.__bodyList):
@@ -99,6 +106,9 @@ class Object(object):
         self.__collision[Object.D_LEFT] = 0b0
         self.__collision[Object.D_RIGHT] = 0b0
         
+        self.__spriteX = 0
+        self.__spriteY = 0
+        
         
     def collisionCorrection(self,targetObj):
         
@@ -123,6 +133,7 @@ class Object(object):
                 self.__collision[Object.D_RIGHT] = 0b1
                 
         #UP
+        
         
         #print(str(adjust_vx))
         self.__vx += adjust_vx

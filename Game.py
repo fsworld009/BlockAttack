@@ -19,6 +19,7 @@ class Game(object):
 
     def start(self):
         pygame.init()
+        pygame.display.set_caption("Block Attack")
         self.__screen = pygame.display.set_mode((self.__screenWidth,self.__screenHeight))
         self.__run()
         
