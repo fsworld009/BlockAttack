@@ -86,9 +86,16 @@ class Game(object):
                 _.frameEnd()
             for _ in playerList:
                 _.frameEnd()
+                
+            #remove objects that are marked to delete
+            for _ in enemyList:
+                if _.delete():
+                    enemyList.remove(_)
 
                     
             InputList.ins().frameEnd()
+            
+            print(len(enemyList))
             
             #fps control
             clock.tick(60)  
