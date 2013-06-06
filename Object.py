@@ -5,7 +5,10 @@ import Global
 
 class Object(object):
     #Object attributes 
-    
+    D_UP=0
+    D_DOWN=1
+    D_LEFT=2
+    D_RIGHT=3
     def __init__(self,axis=(0,0)):
         #attribute list
         self.__x = axis[0]
@@ -24,6 +27,7 @@ class Object(object):
         
         self.__frame = 0
         
+        self.__collision = [0b0,0b0,0b0,0b0]
     
     def _getFrame(self):
         return self.__frame
@@ -89,6 +93,12 @@ class Object(object):
         self.__vy = 0
         
         self.__bodyNo = 0
+        #print(self.__collision)
+        self.__collision[Object.D_UP] = 0b0
+        self.__collision[Object.D_DOWN] = 0b0
+        self.__collision[Object.D_LEFT] = 0b0
+        self.__collision[Object.D_RIGHT] = 0b0
+        
         
     def collisionCorrection(self,targetObj):
         
@@ -99,6 +109,7 @@ class Object(object):
             r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y)
             r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y)
             if Rect.collide(r1, r2):
-                print("collide")
+                print("LEFT collide")
                 adjust_vx-= r2.right+1 - (r1.left)
+                self.__collision[Object.D_LEFT] = 0b1
                 
