@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame
 from Player import Player
 from InputList import InputList, Input
 import Global
@@ -27,7 +27,13 @@ class Game(object):
                 self.__run()
             elif Global.gameState == Global.GS_GAMEOVER:
                 self.__gameover()
+            elif Global.gameState == Global.GS_EXIT:
+                self.__exit()
+                return
     
+    def __exit(self):
+        Global.writeHighScore()
+        pygame.quit()
     
     def __gameover(self):
         clock = pygame.time.Clock()
@@ -39,13 +45,14 @@ class Game(object):
         self.__screen.blit(font2.render("Press ENTER to start the game", 1, (255,0,0)), (150, 300))
         
 
-        
+        #write high score to file
+        Global.writeHighScore()
         
         while True:
             for event in pygame.event.get():
                 if event.type ==  pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    Global.gameState = Global.GS_EXIT
+                    return
                 elif event.type == pygame.KEYDOWN:
                     if event.key==pygame.K_d:
                         Global.showRect = True if not Global.showRect else False
@@ -64,8 +71,8 @@ class Game(object):
         while True:
             for event in pygame.event.get():
                 if event.type ==  pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    Global.gameState = Global.GS_EXIT
+                    return
                 elif event.type == pygame.KEYDOWN:
                     if event.key==pygame.K_d:
                         Global.showRect = True if not Global.showRect else False
@@ -134,8 +141,8 @@ class Game(object):
             for event in pygame.event.get():
                 #user presses "X"
                 if event.type ==  pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    Global.gameState = Global.GS_EXIT
+                    return
                 elif event.type == pygame.KEYDOWN:
                     if event.key==pygame.K_d:
                         Global.showRect = True if not Global.showRect else False
