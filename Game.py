@@ -3,7 +3,7 @@ from Player import Player
 from InputList import InputList
 import Global
 from Enemy import Enemy
-
+from random import randint
 '''
 Created on 2013/6/4
 
@@ -28,17 +28,38 @@ class Game(object):
         InputList.ins()
         
         playerList=[]
-        playerList.append(Player(0,(0,0)))
+        playerList.append(Player(0,(300,216)))
         
         enemyList=[]
-        enemyList.append(Enemy(Enemy.S_UP,(320,480)))
-        enemyList.append(Enemy(Enemy.S_DOWN,(320,-32)))
-        enemyList.append(Enemy(Enemy.S_LEFT,(640,240)))
-        enemyList.append(Enemy(Enemy.S_RIGHT,(-32,240)))
+
         #enemyList.append(Enemy((352,220)))
         #enemyList.append(Enemy((250,300)))
         
+        counter=10
+        
         while True:
+            
+            #generate a block when a specific time frame ocurs  
+            if counter==0:
+                no = randint(1,5)
+                while no>0:
+                    direction = randint(0,3)
+                    if direction==0:
+                        pos=randint(-32,640)
+                        enemyList.append(Enemy(Enemy.S_UP,(pos,480)))
+                    elif direction==1:
+                        pos=randint(-32,640)
+                        enemyList.append(Enemy(Enemy.S_DOWN,(pos,-32)))
+                    elif direction==2:
+                        pos=randint(-32,480)
+                        enemyList.append(Enemy(Enemy.S_LEFT,(640,pos)))
+                    elif direction==3:
+                        pos=randint(-32,480)
+                        enemyList.append(Enemy(Enemy.S_RIGHT,(-32,pos)))
+                    no-=1
+                counter=randint(0,10)
+            else:
+                counter-=1
               
             for event in pygame.event.get():
                 #user presses "X"
