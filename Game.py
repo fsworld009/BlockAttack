@@ -31,9 +31,12 @@ class Game(object):
         playerList.append(Player(0,(0,0)))
         
         enemyList=[]
-        enemyList.append(Enemy((340,240)))
-        enemyList.append(Enemy((352,220)))
-        enemyList.append(Enemy((250,300)))
+        enemyList.append(Enemy(Enemy.S_UP,(320,480)))
+        enemyList.append(Enemy(Enemy.S_DOWN,(320,-32)))
+        enemyList.append(Enemy(Enemy.S_LEFT,(640,240)))
+        enemyList.append(Enemy(Enemy.S_RIGHT,(-32,240)))
+        #enemyList.append(Enemy((352,220)))
+        #enemyList.append(Enemy((250,300)))
         
         while True:
               
@@ -95,7 +98,7 @@ class Game(object):
                     
             InputList.ins().frameEnd()
             
-            print(len(enemyList))
+            #print(len(enemyList))
             
             #fps control
             clock.tick(60)  
