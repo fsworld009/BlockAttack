@@ -151,6 +151,16 @@ class Object(object):
         self.__spriteX = 0
         self.__spriteY = 0
         
+    
+    def crushed(self):
+        if self.__collision[Object.D_UP] == 0b1 and self.__collision[Object.D_DOWN] == 0b1:
+            return True
+        elif self.__collision[Object.D_LEFT] == 0b1 and self.__collision[Object.D_RIGHT] == 0b1:
+            return True
+        else:
+            return False
+        
+        
         
     def collisionCorrection(self,targetObj):
         

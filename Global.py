@@ -9,3 +9,10 @@ screenWidth = 640
 screenHeight = 480
 screenScaledWidth = 640
 screenScaledHeight = 480
+
+#
+GS_MENU=0
+GS_START=1
+GS_GAMEOVER=2
+
+gameState=GS_MENU

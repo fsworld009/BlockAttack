@@ -104,6 +104,12 @@ class Game(object):
             for _ in enemyList:
                 _.blit(self.__screen)
             pygame.display.flip()   #draw screen
+                
+            
+            #gameover check
+            if playerList[0].crushed():
+                Global.gameState = Global.GS_GAMEOVER
+            
             
             #frameend
             for _ in enemyList:
@@ -118,6 +124,8 @@ class Game(object):
 
                     
             InputList.ins().frameEnd()
+            
+            
             
             #print(len(enemyList))
             
