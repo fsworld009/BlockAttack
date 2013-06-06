@@ -16,7 +16,7 @@ class Player(Object):
         elif playerNo==1:
             self._loadSprite("./sprite/player2.png")
             self.__playerNo = 1
-        
+        self._outOfScreen(Object.O_KEEPINSIDE)
     
     def action(self):
         frame = self._getFrame()

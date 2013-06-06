@@ -13,14 +13,12 @@ Created on 2013/6/4
 class Game(object):
     def __init__(self):
         #var list
-        self.__screenWidth = 640
-        self.__screenHeight = 480
         self.__screen = None #pygame  screen Surface
 
     def start(self):
         pygame.init()
         pygame.display.set_caption("Block Attack")
-        self.__screen = pygame.display.set_mode((self.__screenWidth,self.__screenHeight))
+        self.__screen = pygame.display.set_mode((Global.screenWidth,Global.screenHeight))
         self.__run()
         
     def __run(self):

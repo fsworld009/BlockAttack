@@ -9,6 +9,12 @@ class Object(object):
     D_DOWN=1
     D_LEFT=2
     D_RIGHT=3
+    
+    #object options when oiut of screen
+    O_KEEPINSIDE=0
+    O_DELETE=1
+    
+    
     def __init__(self,axis=(0,0)):
         #attribute list
         self.__x = axis[0]
@@ -32,7 +38,13 @@ class Object(object):
         self.__spriteX =0
         self.__spriteY = 0
         
+        self.__outOfScreen = 0
+        
+        self.__markDel =False
+        
 
+    def _outOfScreen(self,option):
+        self.__outOfScreen = option
     
     def _getFrame(self):
         return self.__frame
@@ -47,6 +59,23 @@ class Object(object):
     def update(self):
         self.__x += self.__vx
         self.__y += self.__vy
+        
+        #keep the object inside screen
+        if self.__outOfScreen == Object.O_KEEPINSIDE:
+            #get absolute position of bound box
+            boundBoxAbsPos = self.__boundBox.getRectC(self.__x, self.__y)
+            #get position of bound box relative to (self.__x,self.__y)
+            boundBoxRevPos = self.__boundBox.getRectC(0, 0)
+            if boundBoxAbsPos.left < 0:
+                self.__x = -boundBoxRevPos.left
+            elif boundBoxAbsPos.right >= Global.screenWidth:
+                self.__x = Global.screenWidth-boundBoxRevPos.right
+                
+            if boundBoxAbsPos.top < 0:
+                self.__y = -boundBoxRevPos.top
+            elif boundBoxAbsPos.bottom >= Global.screenHeight:
+                self.__y = Global.screenHeight-boundBoxRevPos.bottom
+
         
     def blit(self,screenSurface):
         if not screenSurface is None:
@@ -189,3 +218,6 @@ class Object(object):
         #print(str(adjust_vx))
         self.__vx += adjust_vx
         self.__vy += adjust_vy
+        
+    def delete(self):
+        return self.__markDel
