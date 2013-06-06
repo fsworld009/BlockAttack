@@ -16,3 +16,5 @@ GS_GAME=1
 GS_GAMEOVER=2
 
 gameState=GS_MENU
+
+highScore=0

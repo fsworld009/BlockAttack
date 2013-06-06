@@ -19,6 +19,7 @@ class Game(object):
         pygame.init()
         pygame.display.set_caption("Block Attack")
         self.__screen = pygame.display.set_mode((Global.screenWidth,Global.screenHeight))
+        #Game screen control
         while True:
             if Global.gameState == Global.GS_MENU:
                 self.__menu()
@@ -36,6 +37,10 @@ class Game(object):
         font2 = pygame.font.SysFont("Arial", 24)
         self.__screen.blit(font2.render("YOU ARE CRUSHED", 1, (255,0,0)), (200, 250))
         self.__screen.blit(font2.render("Press ENTER to start the game", 1, (255,0,0)), (150, 300))
+        
+
+        
+        
         while True:
             for event in pygame.event.get():
                 if event.type ==  pygame.QUIT:
@@ -55,6 +60,7 @@ class Game(object):
         
     def __menu(self):
         clock = pygame.time.Clock()
+  
         while True:
             for event in pygame.event.get():
                 if event.type ==  pygame.QUIT:
@@ -92,16 +98,20 @@ class Game(object):
         
         enemyList=[]
 
-        #enemyList.append(Enemy((352,220)))
-        #enemyList.append(Enemy((250,300)))
         
         counter=10
+        playTime=0
+        #TIMEREVENT =pygame.USEREVENT+1
+        #pygame.time.set_timer(TIMEREVENT,1000)
+        
+        font = pygame.font.SysFont("Arial", 20)
+        
         
         while True:
             
             #generate a block when a specific time frame ocurs  
             if counter==0:
-                no = randint(1,5)
+                no = randint(1,3)
                 while no>0:
                     direction = randint(0,3)
                     if direction==0:
@@ -132,13 +142,8 @@ class Game(object):
                     InputList.ins().setPushdown(event.key)
                 elif event.type == pygame.KEYUP:
                     InputList.ins().setRelease(event.key)
-                """"elif event.type == KEYDOWN and event.key == K_SPACE:
-                    y+=5
-                elif event.type == MOUSEBUTTONDOWN:
-                    sound.play()
-                elif event.type == KEYDOWN and event.key == K_F12:
-                    #save screenshot
-                    pygame.image.save(screen,"screenshot.png")"""
+                #elif event.type == TIMEREVENT:
+                #    print("timer triggerd")
             #action
             for _ in playerList:
                 _.action()
@@ -163,6 +168,10 @@ class Game(object):
                 _.blit(self.__screen)
             for _ in enemyList:
                 _.blit(self.__screen)
+            
+            #display timer
+            self.__screen.blit(font.render("Time:"+str(playTime)+" frames", 1, (255,0,255)), (0, 0))
+            self.__screen.blit(font.render("High Score:"+str(Global.highScore)+" frames", 1, (255,0,255)), (0, 20))        
             pygame.display.flip()   #draw screen
                 
             
@@ -191,4 +200,8 @@ class Game(object):
             #print(len(enemyList))
             
             #fps control
-            clock.tick(60)  
+            clock.tick(60) 
+            playTime+=1 
+            #refresh highscore
+            if playTime > Global.highScore:
+                Global.highScore = playTime
