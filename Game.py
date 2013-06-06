@@ -19,7 +19,52 @@ class Game(object):
         pygame.init()
         pygame.display.set_caption("Block Attack")
         self.__screen = pygame.display.set_mode((Global.screenWidth,Global.screenHeight))
-        self.__run()
+        while True:
+            if Global.gameState == Global.GS_MENU:
+                self.__menu()
+            elif Global.gameState == Global.GS_GAME:
+                self.__run()
+            elif Global.gameState == Global.GS_GAMEOVER:
+                self.__gameover()
+    
+    
+    def __gameover(self):
+        clock = pygame.time.Clock()
+        #lastScreen = self.__screen.copy()
+        font = pygame.font.SysFont("Arial", 80)
+        self.__screen.blit(font.render("GAME OVER", 1, (255,0,0)), (80, 100))
+        font2 = pygame.font.SysFont("Arial", 24)
+        self.__screen.blit(font2.render("Press ENTER to start the game", 1, (255,255,255)), (150, 300))
+        while True:
+            for event in pygame.event.get():
+                if event.type ==  pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN and event.key==pygame.K_RETURN:
+                    Global.gameState = Global.GS_GAME
+                    return 
+            pygame.display.flip()
+            clock.tick(60)
+        
+    def __menu(self):
+        clock = pygame.time.Clock()
+        while True:
+            for event in pygame.event.get():
+                if event.type ==  pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN and event.key==pygame.K_RETURN:
+                    Global.gameState = Global.GS_GAME
+                    return 
+            self.__screen.fill((0,0,0))  #clean screen
+            font = pygame.font.SysFont("Arial", 80)
+            self.__screen.blit(font.render("BLOCK ATTACK", 1, (255,255,255)), (20, 100))
+            font2 = pygame.font.SysFont("Arial", 24)
+            self.__screen.blit(font2.render("Press ENTER to start the game", 1, (255,255,255)), (150, 300))
+            self.__screen.blit(font2.render("use movement keys to move the blue block", 1, (255,255,255)), (80, 350))
+            pygame.display.flip()
+            clock.tick(60)
+        
         
     def __run(self):
         clock = pygame.time.Clock()
@@ -109,6 +154,7 @@ class Game(object):
             #gameover check
             if playerList[0].crushed():
                 Global.gameState = Global.GS_GAMEOVER
+                return
             
             
             #frameend
