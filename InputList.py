@@ -25,7 +25,7 @@ class InputList(object):
         self.__inputList = []
         
         #Player1
-        self.__inputList.append(Input((pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_KP2,pygame.K_KP1,pygame.K_KP_ENTER)))
+        self.__inputList.append(Input((pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_KP2,pygame.K_KP1,pygame.K_RETURN)))
             
     def getInput(self,inputNo):
         return self.__inputList[inputNo]

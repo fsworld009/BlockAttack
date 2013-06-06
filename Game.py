@@ -1,6 +1,6 @@
 import pygame, sys
 from Player import Player
-from InputList import InputList
+from InputList import InputList, Input
 import Global
 from Enemy import Enemy
 from random import randint
@@ -34,17 +34,24 @@ class Game(object):
         font = pygame.font.SysFont("Arial", 80)
         self.__screen.blit(font.render("GAME OVER", 1, (255,0,0)), (80, 100))
         font2 = pygame.font.SysFont("Arial", 24)
-        self.__screen.blit(font2.render("Press ENTER to start the game", 1, (255,255,255)), (150, 300))
+        self.__screen.blit(font2.render("YOU ARE CRUSHED", 1, (255,0,0)), (200, 250))
+        self.__screen.blit(font2.render("Press ENTER to start the game", 1, (255,0,0)), (150, 300))
         while True:
             for event in pygame.event.get():
                 if event.type ==  pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key==pygame.K_RETURN:
-                    Global.gameState = Global.GS_GAME
-                    return 
+                elif event.type == pygame.KEYDOWN:
+                    if event.key==pygame.K_d:
+                        Global.showRect = True if not Global.showRect else False
+                    InputList.ins().setPushdown(event.key)
+                elif event.type == pygame.KEYUP:
+                    InputList.ins().setRelease(event.key)
             pygame.display.flip()
             clock.tick(60)
+            if InputList.ins().getInput(0).pushdown(Input.PAUSE):
+                Global.gameState = Global.GS_GAME
+                return 
         
     def __menu(self):
         clock = pygame.time.Clock()
@@ -53,9 +60,13 @@ class Game(object):
                 if event.type ==  pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key==pygame.K_RETURN:
-                    Global.gameState = Global.GS_GAME
-                    return 
+                elif event.type == pygame.KEYDOWN:
+                    if event.key==pygame.K_d:
+                        Global.showRect = True if not Global.showRect else False
+                    InputList.ins().setPushdown(event.key)
+                elif event.type == pygame.KEYUP:
+                    InputList.ins().setRelease(event.key)
+                    
             self.__screen.fill((0,0,0))  #clean screen
             font = pygame.font.SysFont("Arial", 80)
             self.__screen.blit(font.render("BLOCK ATTACK", 1, (255,255,255)), (20, 100))
@@ -64,6 +75,10 @@ class Game(object):
             self.__screen.blit(font2.render("use movement keys to move the blue block", 1, (255,255,255)), (80, 350))
             pygame.display.flip()
             clock.tick(60)
+            
+            if InputList.ins().getInput(0).pushdown(Input.PAUSE):
+                Global.gameState = Global.GS_GAME
+                return 
         
         
     def __run(self):

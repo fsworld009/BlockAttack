@@ -68,13 +68,17 @@ class Object(object):
             boundBoxRevPos = self.__boundBox.getRectC(0, 0)
             if boundBoxAbsPos.left < 0:
                 self.__x = -boundBoxRevPos.left
+                self.__collision[Object.D_LEFT] = 0b1
             elif boundBoxAbsPos.right >= Global.screenWidth:
                 self.__x = Global.screenWidth-boundBoxRevPos.right
+                self.__collision[Object.D_RIGHT] = 0b1
                 
             if boundBoxAbsPos.top < 0:
                 self.__y = -boundBoxRevPos.top
+                self.__collision[Object.D_UP] = 0b1
             elif boundBoxAbsPos.bottom >= Global.screenHeight:
                 self.__y = Global.screenHeight-boundBoxRevPos.bottom
+                self.__collision[Object.D_DOWN] = 0b1
         elif self.__outOfScreen == Object.O_DELETE:
             #get absolute position of bound box
             boundBoxAbsPos = self.__boundBox.getRectC(self.__x, self.__y)
