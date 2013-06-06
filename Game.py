@@ -33,7 +33,9 @@ class Game(object):
         playerList.append(Player(0,(0,0)))
         
         enemyList=[]
-        enemyList.append(Enemy((320,240)))
+        enemyList.append(Enemy((340,240)))
+        enemyList.append(Enemy((352,220)))
+        enemyList.append(Enemy((250,300)))
         
         while True:
               

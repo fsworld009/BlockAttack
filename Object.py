@@ -133,8 +133,59 @@ class Object(object):
                 self.__collision[Object.D_RIGHT] = 0b1
                 
         #UP
-        
-        
+        if self.__vy - targetObj.__vy <0:
+            r1 = self.__boundBox.getRectC(self.__x, self.__y+self.__vy)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x, targetObj.__y+targetObj.__vy)
+            if Rect.collide(r1, r2):
+                #print("LEFT collide")
+                adjust_vy+= r2.bottom+1 - (r1.top)
+                self.__collision[Object.D_UP] = 0b1
+                
+        #DOWN
+        if self.__vy - targetObj.__vy >0:
+            r1 = self.__boundBox.getRectC(self.__x, self.__y+self.__vy)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x, targetObj.__y+targetObj.__vy)
+            if Rect.collide(r1, r2):
+                #print("LEFT collide")
+                adjust_vy-= r1.bottom - (r2.top-1)
+                self.__collision[Object.D_DOWN] = 0b1
+                
+        #UPPER LEFT CORNER
+        if self.__vx - targetObj.__vx <0 and self.__vy - targetObj.__vy <0 and self.__collision[Object.D_LEFT] == 0b0 and self.__collision[Object.D_UP] == 0b0:
+            r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y+self.__vy)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y+targetObj.__vy)
+            if Rect.collide(r1, r2):
+                adjust_vx+= r2.right+1 - (r1.left)
+                adjust_vy+= r2.bottom+1 - (r1.top)
+                adjust_vy-=1
+                
+        #UPPER RIGHT CORNER
+        if self.__vx - targetObj.__vx >0 and self.__vy - targetObj.__vy <0 and self.__collision[Object.D_RIGHT] == 0b0 and self.__collision[Object.D_UP] == 0b0:
+            r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y+self.__vy)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y+targetObj.__vy)
+            if Rect.collide(r1, r2):
+                adjust_vx-= r1.right - (r2.left-1)
+                adjust_vy+= r2.bottom+1 - (r1.top)
+                adjust_vy-=1
+                
+        #BOTTOM LEFT CORNER
+        if self.__vx - targetObj.__vx <0 and self.__vy - targetObj.__vy >0 and self.__collision[Object.D_LEFT] == 0b0 and self.__collision[Object.D_DOWN] == 0b0:
+            r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y+self.__vy)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y+targetObj.__vy)
+            if Rect.collide(r1, r2):
+                adjust_vx+= r2.right+1 - (r1.left)
+                adjust_vy-= r1.bottom - (r2.top-1)
+                adjust_vy+=1  
+                
+        #BOTTOM RIGHT CORNER
+        if self.__vx - targetObj.__vx <0 and self.__vy - targetObj.__vy >0 and self.__collision[Object.D_LEFT] == 0b0 and self.__collision[Object.D_DOWN] == 0b0:
+            r1 = self.__boundBox.getRectC(self.__x+self.__vx, self.__y+self.__vy)
+            r2 = targetObj.__boundBox.getRectC(targetObj.__x+targetObj.__vx, targetObj.__y+targetObj.__vy)
+            if Rect.collide(r1, r2):
+                adjust_vx-= r1.right - (r2.left-1)
+                adjust_vy-= r1.bottom - (r2.top-1)
+                adjust_vy+=1  
+                
         #print(str(adjust_vx))
         self.__vx += adjust_vx
         self.__vy += adjust_vy
