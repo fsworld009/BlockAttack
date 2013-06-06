@@ -1,4 +1,5 @@
 from Game import Game
+import re #a workaround for cx_freeze
 '''
 Created on 2013/6/4
 
